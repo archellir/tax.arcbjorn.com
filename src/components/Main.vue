@@ -62,7 +62,7 @@ const handleDateChange = async (newDate: Date) => {
         <div
           class="border border-black rounded outline-none p-2 flex justify-center items-center w-60"
         >
-          {{ amountInLari }} ლ
+          {{ amountInLari.toFixed(4) }} ლ
         </div>
       </div>
 
