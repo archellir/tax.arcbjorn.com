@@ -1,1 +1,13 @@
 @import './base.css';
+
+html {
+  @apply h-full w-full;
+}
+
+body {
+  @apply h-full w-full;
+}
+
+#app {
+  @apply h-full w-full flex flex-col;
+}
