@@ -1,6 +1,8 @@
 {
   "name": "tax.arcbjorn.com",
   "version": "0.1.0",
+  "author": "arcbjorn",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
