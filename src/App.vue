@@ -5,13 +5,13 @@ import Footer from '@/components/Footer.vue';
 </script>
 
 <template>
-  <div class="bg-sky-500 min-h-fit">
+  <div class="min-h-fit">
     <Header />
   </div>
-  <div class="bg-yellow-900 grow">
+  <div class="grow border-t border-dashed border-gray-400">
     <Main />
   </div>
-  <div class="bg-emerald-500 min-h-fit">
+  <div class="min-h-fit border-t border-dashed border-gray-400">
     <Footer />
   </div>
 </template>
