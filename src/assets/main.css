@@ -9,5 +9,5 @@ body {
 }
 
 #app {
-  @apply h-full w-full flex flex-col;
+  @apply h-full container mx-auto flex flex-col;
 }
