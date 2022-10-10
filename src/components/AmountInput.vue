@@ -1,5 +1,12 @@
 <script setup lang="ts">
-defineProps(['amount']);
+import type { IMainState } from '@/utils';
+
+export interface IAmountInputProps {
+  amount: IMainState['amountInUSD'];
+}
+
+defineProps<IAmountInputProps>();
+
 const emit = defineEmits(['update:amount']);
 
 const onInput = (event: Event) => {
