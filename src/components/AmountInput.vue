@@ -18,10 +18,10 @@ const debounce = (callback: () => void, time: number = 300) => {
 const onInput = (event: Event) => {
   event.preventDefault();
   const amount = (event.target as HTMLInputElement).value;
-  if (+amount > 99999) {
+  if (+amount > 99999 || +amount < 0) {
     return;
   }
-  emit('update:amount', (event.target as HTMLInputElement).value);
+  emit('update:amount', amount);
 
   debounce(() => window.localStorage.setItem('amountInUSD', amount));
 };
