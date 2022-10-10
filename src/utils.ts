@@ -2,6 +2,7 @@ export interface IMainState {
   date: Date;
   rate: string;
   amountInUSD: number | null;
+  rateLoading: boolean;
 }
 
 export const formatDate = (date: Date) => {
@@ -68,4 +69,8 @@ export const beutify = (amount: number): number => {
   formattedAmount = Number.parseFloat(formattedAmount.toString());
 
   return formattedAmount;
+};
+
+export const getTotalTax = (amount: number): number => {
+  return amount ? Math.round(amount / 100) : 0;
 };

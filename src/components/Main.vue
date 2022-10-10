@@ -7,9 +7,12 @@ import {
   getDefaultDate,
   beutify,
   type IMainState,
+  getTotalTax,
 } from '@/utils';
 import { computed, onMounted, reactive } from 'vue';
+
 import AmountInput from '@/components/AmountInput.vue';
+import Loader from '@/components/Loader.vue';
 
 const defaultDate = getDefaultDate();
 
@@ -17,25 +20,30 @@ const state = reactive<IMainState>({
   date: defaultDate,
   rate: '',
   amountInUSD: null,
+  rateLoading: true,
 });
 
 onMounted(async () => {
   state.rate = await getCurrencyRate(defaultDate);
+  state.rateLoading = false;
 });
 
 const amountInLari = computed((): number => getAmountInLari(state));
 
-const totalTax = computed((): number => {
-  return amountInLari.value ? Math.round(amountInLari.value / 100) : 0;
-});
+const totalTax = computed((): number => getTotalTax(amountInLari.value));
 
 const handleDateChange = async (newDate: Date) => {
-  state.rate = await getCurrencyRate(newDate);
+  state.rateLoading = true;
+  const newRate = await getCurrencyRate(newDate);
+  setTimeout(function () {
+    state.rate = newRate;
+    state.rateLoading = false;
+  }, 500);
 };
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center h-full">
+  <div class="flex flex-col justify-center items-center h-full font-plex-sans">
     <div class="flex flex-col gap-4 px-4">
       <div class="flex items-center justify-around gap-4 flex-wrap">
         <div class="w-fit">
@@ -51,9 +59,10 @@ const handleDateChange = async (newDate: Date) => {
           />
         </div>
         <div
-          class="border border-black rounded outline-none p-2 flex justify-center items-center w-60"
+          class="border border-black rounded outline-none p-2 flex justify-center items-center w-60 h-9"
         >
-          {{ state.rate }} GEL/USD
+          <Loader v-if="state.rateLoading" />
+          <div v-else>{{ state.rate }} GEL/USD</div>
         </div>
       </div>
 
