@@ -13,6 +13,7 @@ import { computed, onMounted, reactive } from 'vue';
 
 import AmountInput from '@/components/AmountInput.vue';
 import Loader from '@/components/Loader.vue';
+import AmountDisplay from '@/components/AmountDisplay.vue';
 
 const defaultDate = getDefaultDate();
 
@@ -68,12 +69,7 @@ const handleDateChange = async (newDate: Date) => {
 
       <div class="flex items-center justify-around gap-4 flex-wrap">
         <AmountInput v-model:amount="state.amountInUSD" />
-
-        <div
-          class="border border-black rounded outline-none p-2 flex justify-center items-center w-60"
-        >
-          {{ beutify(amountInLari) }} ლ
-        </div>
+        <AmountDisplay :amount="beutify(amountInLari)" />
       </div>
 
       <div class="w-60 flex gap-4 self-center items-center">
