@@ -19,7 +19,7 @@ const onInput = (event: Event) => {
       min="0"
       step="1"
       placeholder="amount in USD"
-      class="flex p-2 pr-8 text-black border border-gray-300 rounded outline-none"
+      class="flex p-2 pr-8 text-black border border-gray-300 hover:border-gray-400 focus:border-gray-400 rounded outline-none"
       :value="amount"
       @input="onInput"
     />
