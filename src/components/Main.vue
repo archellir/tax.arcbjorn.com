@@ -5,6 +5,7 @@ import {
   getAmountInLari,
   getCurrencyRate,
   getDefaultDate,
+  beutify,
   type IMainState,
 } from '@/utils';
 import { computed, onMounted, reactive } from 'vue';
@@ -62,7 +63,7 @@ const handleDateChange = async (newDate: Date) => {
         <div
           class="border border-black rounded outline-none p-2 flex justify-center items-center w-60"
         >
-          {{ amountInLari.toFixed(4) }} ლ
+          {{ beutify(amountInLari) }} ლ
         </div>
       </div>
 
