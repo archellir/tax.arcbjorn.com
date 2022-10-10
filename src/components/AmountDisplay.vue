@@ -15,7 +15,7 @@ const copyToClipboard = async () => {
   showCopyTooltip.value = true;
   await navigator.clipboard.writeText(props.amount.toString());
 
-  setTimeout(function () {
+  window.setTimeout(function () {
     showCopyTooltip.value = false;
   }, 1500);
 };
