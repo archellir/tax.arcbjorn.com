@@ -12,9 +12,20 @@ export const formatDate = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
-export const getDefaultDate = (): Date => {
+export const getDefaultDate = (defaultTransactionDay: number = 27): Date => {
   const currentDate = new Date();
-  return new Date(currentDate.getFullYear(), currentDate.getMonth(), 27);
+  const currentMonth = currentDate.getMonth();
+
+  const invoiceMonth =
+    currentDate.getDate() >= defaultTransactionDay
+      ? currentMonth
+      : currentMonth - 1;
+
+  return new Date(
+    currentDate.getFullYear(),
+    invoiceMonth,
+    defaultTransactionDay
+  );
 };
 
 export const getCurrencyRate = async (date: Date): Promise<string> => {
