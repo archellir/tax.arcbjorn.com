@@ -9,6 +9,12 @@ defineProps<IAmountInputProps>();
 
 const emit = defineEmits(['update:amount']);
 
+let debounceTimer: number;
+const debounce = (callback: () => void, time: number = 300) => {
+  window.clearTimeout(debounceTimer);
+  debounceTimer = window.setTimeout(callback, time);
+};
+
 const onInput = (event: Event) => {
   event.preventDefault();
   const amount = (event.target as HTMLInputElement).value;
@@ -16,6 +22,8 @@ const onInput = (event: Event) => {
     return;
   }
   emit('update:amount', (event.target as HTMLInputElement).value);
+
+  debounce(() => window.localStorage.setItem('amountInUSD', amount));
 };
 </script>
 

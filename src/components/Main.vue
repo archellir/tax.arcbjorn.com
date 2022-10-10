@@ -17,10 +17,14 @@ import AmountDisplay from '@/components/AmountDisplay.vue';
 
 const defaultDate = getDefaultDate();
 
+const savedAmount = Number.parseInt(
+  window.localStorage.getItem('amountInUSD') || '0'
+);
+
 const state = reactive<IMainState>({
   date: defaultDate,
   rate: '',
-  amountInUSD: null,
+  amountInUSD: savedAmount || null,
   rateLoading: true,
 });
 
@@ -36,7 +40,8 @@ const totalTax = computed((): number => getTotalTax(amountInLari.value));
 const handleDateChange = async (newDate: Date) => {
   state.rateLoading = true;
   const newRate = await getCurrencyRate(newDate);
-  setTimeout(function () {
+
+  window.setTimeout(function () {
     state.rate = newRate;
     state.rateLoading = false;
   }, 500);
