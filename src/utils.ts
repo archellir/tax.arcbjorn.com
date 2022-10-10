@@ -48,9 +48,24 @@ export const getAmountInLari = (state: IMainState): number => {
   const decimalsNumber = state.rate.split('.').slice(1)[0].length;
   const multiplier = Math.pow(10, decimalsNumber);
 
+  // convert from string to float
   const rateInFloat = Number.parseFloat(state.rate);
+  // convert from float to interger
   const multipliedRateInteger = rateInFloat * multiplier;
 
+  // convert from USD to Lari
   const amountInLari = (multipliedRateInteger * state.amountInUSD) / multiplier;
+
   return amountInLari;
+};
+
+export const beutify = (amount: number): number => {
+  let formattedAmount: number | string;
+
+  // round to 2 decimals
+  formattedAmount = amount.toFixed(2);
+  // trim decimal zeros
+  formattedAmount = Number.parseFloat(formattedAmount.toString());
+
+  return formattedAmount;
 };
