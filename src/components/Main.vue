@@ -46,6 +46,13 @@ const handleDateChange = async (newDate: Date) => {
     state.rateLoading = false;
   }, 500);
 };
+
+const getDayClass = (date: Date) => {
+  if (date.getDate() === state.date.getDate()) {
+    return 'bg-black';
+  }
+  return '';
+};
 </script>
 
 <template>
@@ -59,6 +66,7 @@ const handleDateChange = async (newDate: Date) => {
             arrowNavigation
             monthNameFormat="long"
             :enableTimePicker="false"
+            :day-class="getDayClass"
             format="dd MMMM, yyyy"
             v-model="state.date"
             @update:modelValue="handleDateChange"
