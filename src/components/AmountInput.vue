@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { restrictToIntegers } from '@/helpers';
 import type { IMainState } from '@/utils';
 
 export interface IAmountInputProps {
@@ -16,14 +17,16 @@ const debounce = (callback: () => void, time: number = 300) => {
 };
 
 const onInput = (event: Event) => {
-  event.preventDefault();
-  const amount = (event.target as HTMLInputElement).value;
-  if (+amount > 99999 || +amount < 0) {
+  const amountString = (event.target as HTMLInputElement).value;
+  const amountNumber = Number.parseInt(amountString);
+
+  if (amountNumber > 99999 || amountNumber < 0) {
     return;
   }
-  emit('update:amount', amount);
 
-  debounce(() => window.localStorage.setItem('amountInUSD', amount));
+  emit('update:amount', amountNumber);
+
+  debounce(() => window.localStorage.setItem('amountInUSD', amountString));
 };
 </script>
 
@@ -37,6 +40,7 @@ const onInput = (event: Event) => {
       class="flex p-2 pr-8 text-black border border-gray-300 hover:border-gray-400 focus:border-gray-400 rounded outline-none"
       :value="amount"
       @input="onInput"
+      @keydown="restrictToIntegers"
     />
     <span
       class="flex absolute right-2 bg-transparent rounded text-base text-gray-600 p-2"
