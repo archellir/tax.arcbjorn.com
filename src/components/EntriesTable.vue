@@ -91,7 +91,12 @@ const copyToClipboard = async () => {
           &#10003;
         </div>
       </div>
-      <div class="pr-4">Subtotal: {{ Math.round(subtotal) }} GEL</div>
+      <div
+        class="flex flex-col md:flex-row text-center md:text-right items-center pr-4"
+      >
+        <span class="md:mr-1">Subtotal:</span>
+        <span>{{ Math.round(subtotal) }} GEL</span>
+      </div>
     </div>
   </div>
 </template>
