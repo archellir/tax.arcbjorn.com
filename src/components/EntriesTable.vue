@@ -12,6 +12,7 @@ const props = defineProps<{
 }>();
 
 const showCopyTooltip = ref<boolean>(false);
+const showSubtotalTooltip = ref<boolean>(false);
 
 const subtotal = computed(() => {
   return props.entries.reduce((sum, entry) => sum + entry.gel, 0);
@@ -45,6 +46,15 @@ const copyToClipboard = async () => {
   showCopyTooltip.value = true;
   window.setTimeout(() => {
     showCopyTooltip.value = false;
+  }, 1500);
+};
+
+const copySubtotal = async () => {
+  await navigator.clipboard.writeText(Math.round(subtotal.value).toString());
+
+  showSubtotalTooltip.value = true;
+  window.setTimeout(() => {
+    showSubtotalTooltip.value = false;
   }, 1500);
 };
 </script>
@@ -92,10 +102,21 @@ const copyToClipboard = async () => {
         </div>
       </div>
       <div
-        class="flex flex-col md:flex-row text-center md:text-right items-center pr-4"
+        class="flex flex-col md:flex-row text-center md:text-right items-center pr-4 relative"
       >
         <span class="md:mr-1">Subtotal:</span>
-        <span>{{ Math.round(subtotal) }} GEL</span>
+        <div class="flex items-center gap-2">
+          <span>{{ Math.round(subtotal) }} GEL</span>
+          <button @click="copySubtotal" class="rounded active:opacity-50">
+            <CopyIcon :dark="themeStore.isDark" />
+          </button>
+          <div
+            v-if="showSubtotalTooltip"
+            class="absolute right-0 top-full mt-2 px-1 text-sm text-green-500 border border-black dark:border-white rounded animate-appear"
+          >
+            &#10003;
+          </div>
+        </div>
       </div>
     </div>
   </div>
