@@ -10,9 +10,10 @@ import {
   getTotalTax,
 } from '@/utils';
 import { computed, onMounted, reactive } from 'vue';
+import { useThemeStore } from '@/stores/theme';
 
 import AmountInput from '@/components/AmountInput.vue';
-import Loader from '@/components/Loader.vue';
+import Loader from '@/components/LoaderView.vue';
 import AmountDisplay from '@/components/AmountDisplay.vue';
 
 const defaultDate = getDefaultDate();
@@ -27,6 +28,8 @@ const state = reactive<IMainState>({
   amountInUSD: savedAmount || null,
   rateLoading: true,
 });
+
+const themeStore = useThemeStore();
 
 onMounted(async () => {
   state.rate = await getCurrencyRate(defaultDate);
@@ -48,32 +51,45 @@ const handleDateChange = async (newDate: Date) => {
 };
 
 const getDayClass = (date: Date) => {
-  if (date.getDate() === state.date.getDate()) {
-    return 'bg-black';
+  if (
+    date.getDate() === state.date.getDate() &&
+    date.getMonth() === state.date.getMonth() &&
+    date.getFullYear() === state.date.getFullYear()
+  ) {
+    return 'bg-black text-white dark:bg-white dark:text-black';
   }
   return '';
 };
+
+const datePickerConfig = computed(() => ({
+  autoApply: true,
+  hideOffsetDates: true,
+  arrowNavigation: true,
+  monthNameFormat: 'long' as const,
+  enableTimePicker: false,
+  format: 'dd MMMM, yyyy',
+  clearable: false,
+  dark: themeStore.isDark,
+  textColor: themeStore.isDark ? 'white' : 'black',
+}));
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center h-full font-plex-sans">
+  <div
+    class="flex flex-col justify-center items-center h-full font-plex-sans dark:bg-black dark:text-white"
+  >
     <div class="flex flex-col gap-4 px-4">
       <div class="flex items-center justify-around gap-4 flex-wrap">
         <div class="w-fit">
           <Datepicker
-            autoApply
-            hideOffsetDates
-            arrowNavigation
-            monthNameFormat="long"
-            :enableTimePicker="false"
+            v-bind="datePickerConfig"
             :day-class="getDayClass"
-            format="dd MMMM, yyyy"
             v-model="state.date"
             @update:modelValue="handleDateChange"
           />
         </div>
         <div
-          class="border border-black rounded outline-none p-2 flex justify-center items-center w-60 h-9"
+          class="border border-black dark:border-white rounded outline-none p-2 flex justify-center items-center w-60 h-9"
         >
           <Loader v-if="state.rateLoading" />
           <div v-else>{{ state.rate }} GEL/USD</div>
@@ -88,7 +104,7 @@ const getDayClass = (date: Date) => {
       <div class="w-60 flex gap-4 self-center items-center">
         Total tax:
         <div
-          class="border border-black rounded outline-none p-2 flex justify-center w-20"
+          class="border border-black dark:border-white rounded outline-none p-2 flex justify-center w-20"
         >
           {{ totalTax }} ლ
         </div>
@@ -97,4 +113,14 @@ const getDayClass = (date: Date) => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+:deep(.dp__today) {
+  border-color: black !important;
+}
+</style>
+
+<style>
+.dark .dp__today {
+  border-color: white !important;
+}
+</style>

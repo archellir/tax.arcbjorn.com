@@ -1,13 +1,16 @@
 @import './base.css';
 
 html {
-  @apply h-full w-full;
+  @apply h-full w-full bg-white dark:bg-black;
+  transition: background-color 0.3s ease;
 }
 
 body {
-  @apply h-full w-full;
+  @apply h-full w-full bg-white dark:bg-black;
+  transition: background-color 0.3s ease;
 }
 
 #app {
-  @apply h-full container mx-auto flex flex-col animate-appear;
+  @apply h-full container mx-auto flex flex-col animate-appear bg-white dark:bg-black;
+  transition: background-color 0.3s ease;
 }

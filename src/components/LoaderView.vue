@@ -55,3 +55,9 @@
   }
 }
 </style>
+
+<style>
+.dark .dot-pulse {
+  --uib-color: white;
+}
+</style>

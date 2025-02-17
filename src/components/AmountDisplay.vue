@@ -23,14 +23,14 @@ const copyToClipboard = async () => {
 
 <template>
   <div
-    class="border border-black rounded outline-none p-2 flex justify-center items-center w-60 relative"
+    class="border border-black dark:border-white rounded outline-none p-2 flex justify-center items-center w-60 relative"
   >
     {{ amount }} ლ
 
     <button
       v-if="showCopyButton"
       type="button"
-      class="absolute right-4 rounded active:opacity-50"
+      class="absolute right-4 rounded active:opacity-50 dark:text-white"
       @click="copyToClipboard"
     >
       <CopyIcon />
@@ -38,7 +38,7 @@ const copyToClipboard = async () => {
 
     <div
       v-if="showCopyTooltip"
-      class="absolute z-100 -right-8 px-1 text-sm text-green-500 border border-black rounded animate-appear"
+      class="absolute z-100 -right-8 px-1 text-sm text-green-500 border border-black dark:border-white rounded animate-appear"
     >
       &#10003;
     </div>
