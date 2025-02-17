@@ -18,6 +18,22 @@ export const restrictToIntegers = (event: KeyboardEvent): void => {
     (input.value.length >= 5 && !input.selectionStart)
   ) {
     event.preventDefault();
+
+    // Show warning if trying to exceed 5 digits
+    if (input.value.length >= 5 && digitsRegExp.test(event.key)) {
+      const warningEvent = new CustomEvent('show-limit-warning', {
+        detail: { show: true },
+      });
+      input.dispatchEvent(warningEvent);
+
+      // Hide warning after 1.5 seconds
+      setTimeout(() => {
+        const hideWarningEvent = new CustomEvent('show-limit-warning', {
+          detail: { show: false },
+        });
+        input.dispatchEvent(hideWarningEvent);
+      }, 1500);
+    }
   }
 };
 
@@ -37,8 +53,22 @@ export const handlePaste = (event: ClipboardEvent): void => {
   const afterSelection = input.value.slice(end);
   const newValue = beforeSelection + digitsOnly + afterSelection;
 
+  // Dispatch a custom event to show warning if needed
+  const warningEvent = new CustomEvent('show-limit-warning', {
+    detail: { show: newValue.length > 5 },
+  });
+  input.dispatchEvent(warningEvent);
+
   // If the resulting number would be more than 5 digits, prevent paste
   if (newValue.length > 5) {
     event.preventDefault();
+
+    // Hide warning after 1.5 seconds
+    setTimeout(() => {
+      const hideWarningEvent = new CustomEvent('show-limit-warning', {
+        detail: { show: false },
+      });
+      input.dispatchEvent(hideWarningEvent);
+    }, 1500);
   }
 };
