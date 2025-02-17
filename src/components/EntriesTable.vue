@@ -75,8 +75,8 @@ const copyToClipboard = async () => {
         </tbody>
       </table>
     </div>
-    <div class="mt-2 text-right pr-4 flex justify-between items-center">
-      <div class="relative">
+    <div class="mt-4 flex justify-between">
+      <div class="relative w-fit mt-2">
         <button
           @click="copyToClipboard"
           class="px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded hover:opacity-80 flex items-center gap-2"
@@ -86,12 +86,12 @@ const copyToClipboard = async () => {
         </button>
         <div
           v-if="showCopyTooltip"
-          class="absolute top-1/2 -translate-y-1/2 left-full ml-2 px-1 text-sm text-green-500 border border-black dark:border-white rounded animate-appear"
+          class="absolute md:left-full md:top-1/2 md:-translate-y-1/2 md:ml-4 left-1/2 -translate-x-1/2 top-full mt-2 md:mt-0 px-1 text-sm text-green-500 border border-black dark:border-white rounded animate-appear"
         >
           &#10003;
         </div>
       </div>
-      <div>Subtotal: {{ Math.round(subtotal) }} GEL</div>
+      <div class="pr-4">Subtotal: {{ Math.round(subtotal) }} GEL</div>
     </div>
   </div>
 </template>

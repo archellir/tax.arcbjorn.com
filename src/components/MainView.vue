@@ -93,7 +93,7 @@ const saveEntry = () => {
 
 <template>
   <div
-    class="flex flex-col justify-center items-center h-full font-plex-sans dark:bg-black dark:text-white"
+    class="flex flex-col justify-center items-center min-h-full font-plex-sans dark:bg-black dark:text-white py-12"
   >
     <div class="flex flex-col gap-4 px-4">
       <div class="flex items-center justify-around gap-4 flex-wrap">
