@@ -15,6 +15,8 @@ import { useThemeStore } from '@/stores/theme';
 import AmountInput from '@/components/AmountInput.vue';
 import Loader from '@/components/LoaderView.vue';
 import AmountDisplay from '@/components/AmountDisplay.vue';
+import EntriesTable from '@/components/EntriesTable.vue';
+import type { IEntry } from '@/utils';
 
 const defaultDate = getDefaultDate();
 
@@ -27,6 +29,7 @@ const state = reactive<IMainState>({
   rate: '',
   amountInUSD: savedAmount || null,
   rateLoading: true,
+  entries: [],
 });
 
 const themeStore = useThemeStore();
@@ -72,6 +75,19 @@ const datePickerConfig = computed(() => ({
   dark: themeStore.isDark,
   textColor: themeStore.isDark ? 'white' : 'black',
 }));
+
+const saveEntry = () => {
+  if (!state.amountInUSD || !state.rate) return;
+
+  const entry: IEntry = {
+    date: new Date(state.date),
+    usd: state.amountInUSD,
+    rate: state.rate,
+    gel: amountInLari.value,
+  };
+
+  state.entries.push(entry);
+};
 </script>
 
 <template>
@@ -109,6 +125,18 @@ const datePickerConfig = computed(() => ({
           {{ totalTax }} ლ
         </div>
       </div>
+
+      <div class="mt-4 self-center">
+        <button
+          @click="saveEntry"
+          class="px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded hover:opacity-80 disabled:opacity-50"
+          :disabled="!state.amountInUSD || !state.rate"
+        >
+          Save Entry
+        </button>
+      </div>
+
+      <EntriesTable :entries="state.entries" />
     </div>
   </div>
 </template>

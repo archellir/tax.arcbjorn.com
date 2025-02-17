@@ -3,6 +3,14 @@ export interface IMainState {
   rate: string;
   amountInUSD: number | null;
   rateLoading: boolean;
+  entries: IEntry[];
+}
+
+export interface IEntry {
+  date: Date;
+  usd: number;
+  rate: string;
+  gel: number;
 }
 
 export const formatDate = (date: Date) => {
