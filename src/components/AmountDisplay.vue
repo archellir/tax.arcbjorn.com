@@ -5,7 +5,7 @@ import { useThemeStore } from '@/stores/theme';
 
 const themeStore = useThemeStore();
 
-export interface IAmountDisplayProps {
+interface IAmountDisplayProps {
   amount: number;
 }
 
