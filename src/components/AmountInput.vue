@@ -37,7 +37,7 @@ const onInput = (event: Event) => {
       min="0"
       step="1"
       placeholder="amount in USD"
-      class="flex p-2 pr-8 text-black dark:text-white border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 focus:border-gray-400 dark:focus:border-gray-500 rounded outline-none dark:bg-black"
+      class="flex p-2 pr-8 text-black dark:text-white border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 focus:border-gray-400 dark:focus:border-gray-500 rounded outline-none dark:bg-black hide-number-spinners"
       :value="amount"
       @input="onInput"
       @keydown="restrictToIntegers"
@@ -49,3 +49,17 @@ const onInput = (event: Event) => {
     </span>
   </div>
 </template>
+
+<style>
+/* Chrome, Safari, Edge, Opera */
+.hide-number-spinners::-webkit-outer-spin-button,
+.hide-number-spinners::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.hide-number-spinners {
+  -moz-appearance: textfield;
+}
+</style>
