@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { restrictToIntegers } from '@/helpers';
+import { restrictToIntegers, handlePaste } from '@/helpers';
 import type { IMainState } from '@/utils';
 
 export interface IAmountInputProps {
@@ -36,11 +36,13 @@ const onInput = (event: Event) => {
       type="number"
       min="0"
       step="1"
+      maxlength="5"
       placeholder="amount in USD"
       class="flex p-2 pr-8 text-black dark:text-white border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 focus:border-gray-400 dark:focus:border-gray-500 rounded outline-none dark:bg-black hide-number-spinners"
       :value="amount"
       @input="onInput"
       @keydown="restrictToIntegers"
+      @paste="handlePaste"
     />
     <span
       class="flex absolute right-2 bg-transparent rounded text-base text-gray-600 dark:text-gray-400 p-2"
