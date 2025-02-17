@@ -3,7 +3,7 @@ import DarkModeToggle from '@/components/DarkModeToggle.vue';
 </script>
 
 <template>
-  <div class="flex justify-between gap-4 flex-wrap p-12">
+  <div class="flex items-center justify-between gap-4 flex-wrap p-12">
     <a
       href="/"
       class="cursor-pointer text-xl font-plex-mono font-semibold dark:text-white"
