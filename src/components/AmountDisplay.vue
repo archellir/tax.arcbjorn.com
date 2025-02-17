@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import CopyIcon from '@/components/CopyIcon.vue';
 import { computed, ref } from 'vue';
+import { useThemeStore } from '@/stores/theme';
+
+const themeStore = useThemeStore();
 
 export interface IAmountDisplayProps {
   amount: number;
@@ -33,7 +36,7 @@ const copyToClipboard = async () => {
       class="absolute right-4 rounded active:opacity-50 dark:text-white"
       @click="copyToClipboard"
     >
-      <CopyIcon />
+      <CopyIcon :dark="themeStore.isDark" />
     </button>
 
     <div
