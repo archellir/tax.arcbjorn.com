@@ -74,6 +74,7 @@ const datePickerConfig = computed(() => ({
   clearable: false,
   dark: themeStore.isDark,
   textColor: themeStore.isDark ? 'white' : 'black',
+  maxDate: new Date(),
 }));
 
 const saveEntry = () => {
