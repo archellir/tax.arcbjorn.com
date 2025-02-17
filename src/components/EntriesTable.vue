@@ -89,7 +89,7 @@ const copySubtotal = async () => {
       <div class="relative w-fit mt-2">
         <button
           @click="copyToClipboard"
-          class="px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded hover:opacity-80 flex items-center gap-2"
+          class="px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded hover:opacity-80 flex items-center gap-2 text-base md:text-base text-sm"
         >
           <CopyIcon :dark="!themeStore.isDark" />
           Copy as Markdown
